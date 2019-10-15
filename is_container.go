@@ -27,7 +27,9 @@ func Validate(value interface{}) error {
 	if err != nil {
 		return err
 	}
-
+	if checkDigitCalc == 10 {
+		checkDigitCalc = 0
+	}
 	result := checkDigitCalc == checkDigit
 	if !result {
 		return errValueNotIso6346

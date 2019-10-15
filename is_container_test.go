@@ -4,21 +4,21 @@ import "testing"
 
 // Test some valid numbers
 func TestValidNums(t *testing.T) {
-	validNums := []string{"MRKU4976720", "TCNU6225360", "CMAU5110875", "HDMU6804878", "SEGU5304843"}
+	validNums := []string{"MRKU4976720", "TCNU6225360", "CMAU5110875", "HDMU6804878", "HDMU6676437"}
 	for _, item := range validNums {
-		if err := Validate(item); err == nil {
+		if err := Validate(item); err != nil {
 			if err == errValueNotIso6346 {
 				t.Error("Valid number validated as invalid", item)
+			} else if err != errValueNotIso6346 {
+				t.Error("Not a digits")
 			}
-		} else if err != errValueNotIso6346 {
-			t.Error("Not a digits")
 		}
 	}
 }
 
 // Test some invalid numbers
 func TestInvalidNums(t *testing.T) {
-	invalidNums := []string{"MRKU4976721", "TCNU6225365", "CMAU5110870", "45847172", "458477121"}
+	invalidNums := []string{"MRKU4976721", "TCNU6225365", "CMAU5110870", "SEGU5304843", "458477121"}
 	for _, item := range invalidNums {
 		if err := Validate(item); err == nil {
 			if err == errValueNotIso6346 {
