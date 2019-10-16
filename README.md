@@ -8,7 +8,7 @@ Algorithm will detect wrong container numbers.
 
 It is not intended to be a cryptographically secure hash function. It is mostly used for preflight container numbers.
 
-Compatible with the ozzo-validation package.
+Compatible with the [ozzo-validation](https://github.com/go-ozzo/ozzo-validation) package.
 
 ### Usage ###
 
