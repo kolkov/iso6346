@@ -6,17 +6,17 @@ import (
 	"strings"
 )
 
-var errValueNotIso6346 = errors.New("must be valid number by iso6346 algorithm")
-var errValueLen11 = errors.New("must be 11 char length")
+var ErrValueNotIso6346 = errors.New("iso6346: must be valid number by iso6346 algorithm")
+var ErrValueNotLen11 = errors.New("iso6346: must be 11 char length")
 
 // Validate check number is valid or not based on iso6346 algorithm
 func Validate(value interface{}) error {
 	s, ok := value.(string)
 	if !ok {
-		return errValueNotIso6346
+		return ErrValueNotIso6346
 	}
 	if len(s) != 11 {
-		return errValueLen11
+		return ErrValueNotLen11
 	}
 	part := s[0:10]
 	checkDigitCalc, err := CalcCheckDigit(part)
@@ -32,17 +32,17 @@ func Validate(value interface{}) error {
 	}
 	result := checkDigitCalc == checkDigit
 	if !result {
-		return errValueNotIso6346
+		return ErrValueNotIso6346
 	}
 	return nil
 }
 
-var errValueLen10 = errors.New("must be 10 char")
+var ErrValueNotLen10 = errors.New("iso6346: must be 10 char")
 
 // CalcCheckDigit calculates check digit for iso6346 algorithm.
 func CalcCheckDigit(code string) (int, error) {
 	if len(code) != 10 {
-		return 0, errValueLen10
+		return 0, ErrValueNotLen10
 	}
 	n := 0.0
 	d := 0.5

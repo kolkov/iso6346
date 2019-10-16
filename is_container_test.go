@@ -7,9 +7,9 @@ func TestValidNums(t *testing.T) {
 	validNums := []string{"MRKU4976720", "TCNU6225360", "CMAU5110875", "HDMU6804878", "HDMU6676437"}
 	for _, item := range validNums {
 		if err := Validate(item); err != nil {
-			if err == errValueNotIso6346 {
+			if err == ErrValueNotIso6346 {
 				t.Error("Valid number validated as invalid", item)
-			} else if err != errValueNotIso6346 {
+			} else if err != ErrValueNotIso6346 {
 				t.Error("Not a digits")
 			}
 		}
@@ -21,12 +21,12 @@ func TestInvalidNums(t *testing.T) {
 	invalidNums := []string{"MRKU4976721", "TCNU6225365", "CMAU5110870", "SEGU5304843", "458477121"}
 	for _, item := range invalidNums {
 		if err := Validate(item); err == nil {
-			if err == errValueNotIso6346 {
+			if err == ErrValueNotIso6346 {
 				t.Error("Invalid number validated as valid", item)
 			}
-		} else if err == errValueLen11 {
+		} else if err == ErrValueNotLen11 {
 			err.Error()
-		} else if err != errValueNotIso6346 && err != errValueLen11 {
+		} else if err != ErrValueNotIso6346 && err != ErrValueNotLen11 {
 			t.Error("Other errors!")
 		}
 	}
@@ -43,7 +43,7 @@ func TestIso6346(t *testing.T) {
 		}
 
 		if err := Validate(c); err == nil {
-			if err == errValueNotIso6346 {
+			if err == ErrValueNotIso6346 {
 				t.Errorf("Unable to validate signature that was generated")
 			}
 		}
